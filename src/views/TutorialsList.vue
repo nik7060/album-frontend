@@ -1,6 +1,6 @@
 <template>
 
-    <h1>Tutorial List</h1>
+    <h1>Album List</h1>
     <h4>{{ message }}</h4>
   
       <v-row >
@@ -49,35 +49,35 @@
     />
  
   <v-btn  @click="removeAllTutorials">
-    Remove All
+    Remove All Albums
   </v-btn>
 </template>
 <script>
 import TutorialDataService from "../services/TutorialDataService";
 import TutorialDisplay from '@/components/TutorialDisplay.vue';
 export default {
-  name: "tutorials-list",
+  name: "albums-list",
   data() {
     return {
       tutorials: [],
       currentTutorial: null,
       currentIndex: -1,
       title: "",
-      message : "Search, Edit or Delete Tutorials"
+      message : "Search, Edit or Delete Albums"
     };
   },
   components: {
         TutorialDisplay
     },
   methods: {
-    goEdit(tutorial) {
-      this.$router.push({ name: 'edit', params: { id: tutorial.id } });
+    goEdit(album) {
+      this.$router.push({ name: 'edit', params: { id: album.id } });
     },
-    goView(tutorial) {
-      this.$router.push({ name: 'view', params: { id: tutorial.id } });
+    goView(album) {
+      this.$router.push({ name: 'view', params: { id: album.id } });
     },
-    goDelete(tutorial) {
-      TutorialDataService.delete(tutorial.id)
+    goDelete(album) {
+      TutorialDataService.delete(album.id)
         .then( () => {
     
           this.retrieveTutorials()
