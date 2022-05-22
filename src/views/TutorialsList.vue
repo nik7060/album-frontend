@@ -43,7 +43,7 @@
         v-for="tutorial in tutorials"
         :key="tutorial.id"
         :tutorial="tutorial"
-        @deleteAlbum="goDelete(tutorial)"
+        @deleteTutorial="goDelete(tutorial)"
         @updateTutorial="goEdit(tutorial)"
         @viewTutorial="goView(tutorial)"
     />
