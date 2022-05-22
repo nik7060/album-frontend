@@ -1,5 +1,5 @@
 <template>
-    <h1>Tutorial Edit</h1>
+    <h1>Album Edit</h1>
     <h4>{{ message }}</h4>
     <v-form>
        <v-text-field
@@ -18,7 +18,7 @@
             <v-col col="2"> </v-col>
             <v-col col="2">
                 <v-btn color="success" @click="updateTutorial()"
-                    >Save</v-btn
+                    >Update</v-btn
                 >
             </v-col>
             <v-col col="2">
