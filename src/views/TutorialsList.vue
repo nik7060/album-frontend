@@ -79,7 +79,6 @@ export default {
     goDelete(album) {
       TutorialDataService.delete(album.id)
         .then( () => {
-    
           this.retrieveTutorials()
         })
         .catch(e => {
