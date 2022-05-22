@@ -43,7 +43,7 @@
         v-for="tutorial in tutorials"
         :key="tutorial.id"
         :tutorial="tutorial"
-        @deleteTutorial="goDelete(tutorial)"
+        @deleteAlbum="goDelete(tutorial)"
         @updateTutorial="goEdit(tutorial)"
         @viewTutorial="goView(tutorial)"
     />
@@ -79,7 +79,6 @@ export default {
     goDelete(album) {
       TutorialDataService.delete(album.id)
         .then( () => {
-    
           this.retrieveTutorials()
         })
         .catch(e => {
