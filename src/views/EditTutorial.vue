@@ -29,7 +29,7 @@
     </v-form>
 </template>
 <script>
-import TutorialDataService from "../services/TutorialDataService";
+import AlbumDataService from "../services/AlbumDataService";
 export default {
   name: "edit-tutorial",
   props: ['id'],
@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     retrieveTutorial() {
-      TutorialDataService.get(this.id)
+      AlbumDataService.get(this.id)
         .then(response => {
           this.tutorial= response.data;
         })
@@ -57,7 +57,7 @@ export default {
         description: this.tutorial.description
 
       };
-      TutorialDataService.update(this.id,data)
+      AlbumDataService.update(this.id,data)
         .then(response => {
           this.tutorial.id = response.data.id;
           console.log("add "+response.data);
