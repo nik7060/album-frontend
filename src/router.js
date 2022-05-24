@@ -9,7 +9,7 @@ const routes =  [
   {
     path: "/edit/:id",
     name: "edit",
-    component: () => import("./views/EditTutorial.vue"),
+    component: () => import("./views/EditAlbum.vue"),
     props: true
   },
   {
