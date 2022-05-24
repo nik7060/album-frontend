@@ -53,7 +53,7 @@
   </v-btn>
 </template>
 <script>
-import TutorialDataService from "../services/TutorialDataService";
+import AlbumDataService from "../services/AlbumDataService";
 import TutorialDisplay from '@/components/TutorialDisplay.vue';
 export default {
   name: "albums-list",
@@ -77,7 +77,7 @@ export default {
       this.$router.push({ name: 'view', params: { id: album.id } });
     },
     goDelete(album) {
-      TutorialDataService.delete(album.id)
+      AlbumDataService.delete(album.id)
         .then( () => {
           this.retrieveTutorials()
         })
@@ -86,7 +86,7 @@ export default {
         });
     },
     retrieveTutorials() {
-      TutorialDataService.getAll()
+      AlbumDataService.getAll()
         .then(response => {
           this.tutorials = response.data;
           
@@ -105,7 +105,7 @@ export default {
       this.currentIndex = tutorial ? index : -1;
     },
     removeAllTutorials() {
-      TutorialDataService.deleteAll()
+      AlbumDataService.deleteAll()
         .then(response => {
           console.log(response.data);
           this.refreshList();
@@ -116,7 +116,7 @@ export default {
     },
     
     searchTitle() {
-      TutorialDataService.findByTitle(this.title)
+      AlbumDataService.findByTitle(this.title)
         .then(response => {
           this.tutorials = response.data;
           this.setActiveTutorial(null);

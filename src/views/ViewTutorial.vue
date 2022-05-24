@@ -36,7 +36,7 @@
    
 </template>
 <script>
-import TutorialDataService from "../services/TutorialDataService";
+import AlbumDataService from "../services/AlbumDataService";
 import LessonDataService from "../services/LessonDataService";
 import LessonDisplay from '@/components/LessonDisplay.vue';
 export default {
@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     retrieveLessons() {
-      TutorialDataService.get(this.id)
+      AlbumDataService.get(this.id)
         .then(response => {
           this.tutorial= response.data;
           LessonDataService.getAllLessons(this.id)

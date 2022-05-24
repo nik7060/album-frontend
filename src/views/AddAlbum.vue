@@ -1,20 +1,20 @@
 <template>
-    <h1>Tutorial Add</h1>
+    <h1>Add Album</h1>
     <h4>{{ message }}</h4>
     <v-form>
        <v-text-field
             label="Title"
-            v-model="tutorial.title"
+            v-model="album.title"
         />
         <v-text-field
             label="Description"
-            v-model="tutorial.description"
+            v-model="album.description"
         />
         <v-row justify="center">
             <v-col col="2"> </v-col>
             <v-col col="2">
-                <v-btn color="success" @click="saveTutorial()"
-                    >Save</v-btn
+                <v-btn color="success" @click="saveAlbum()"
+                    >Save Album</v-btn
                 >
             </v-col>
             <v-col col="2">
@@ -25,30 +25,30 @@
     </v-form>
 </template>
 <script>
-import TutorialDataService from "../services/TutorialDataService";
+import AlbumDataService from "../services/AlbumDataService";
 export default {
-  name: "add-tutorial",
+  name: "add-album",
   data() {
     return {
-      tutorial: {
+      album: {
         id: null,
         title: "",
         description: "",
         published: false
       },
-      message: "Enter data and click save"
+      message: "Enter data and click save album"
     };
   },
   methods: {
-    saveTutorial() {
+    saveAlbum() {
       var data = {
-        title: this.tutorial.title,
-        description: this.tutorial.description
+        title: this.album.title,
+        description: this.album.description
       };
-      TutorialDataService.create(data)
+      AlbumDataService.create(data)
         .then(response => {
-          this.tutorial.id = response.data.id;
-          console.log("add "+response.data);
+          this.album.id = response.data.id;
+          console.log("add response from api >",response.data);
           this.$router.push({ name: 'tutorials' });
         })
         .catch(e => {
