@@ -1,5 +1,5 @@
 import { createWebHistory, createRouter } from "vue-router";
-const routes =  [
+const routes = [
   {
     path: "/",
     alias: "/tutorials",
@@ -20,7 +20,7 @@ const routes =  [
   {
     path: "/view",
     name: "view",
-    component: () => import("./views/ViewTutorial.vue"),
+    component: () => import("./views/ViewAlbum.vue"),
     props: true
   },
   {
