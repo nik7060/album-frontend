@@ -3,19 +3,20 @@
     <h1>Album List</h1>
     <h4>{{ message }}</h4>
   
-      <v-row >
+      <v-row class="search__input">
+        <v-col col="12" sm="10">
+            <v-text-field density="compact" clearable
+              v-model="title"
+              />
+        </v-col>
         <v-col  cols="12"
         sm="2">
           <v-btn color = "success"
-            @click="searchTitle"
+            @click="searchAlbumByTitle"
           >
             Search
           </v-btn>
         </v-col>
-        <v-col col="12" sm="10">
-            <v-text-field density="compact" clearable
-              v-model="title"/>
-        </v-col> 
       </v-row>
       <v-row>
         <v-col  cols="9"
@@ -53,7 +54,7 @@
   </v-btn>
 </template>
 <script>
-import TutorialDataService from "../services/TutorialDataService";
+import AlbumDataService from "../services/AlbumDataService";
 import TutorialDisplay from '@/components/TutorialDisplay.vue';
 export default {
   name: "albums-list",
@@ -77,7 +78,7 @@ export default {
       this.$router.push({ name: 'view', params: { id: album.id } });
     },
     goDelete(album) {
-      TutorialDataService.delete(album.id)
+      AlbumDataService.delete(album.id)
         .then( () => {
           this.retrieveTutorials()
         })
@@ -86,10 +87,9 @@ export default {
         });
     },
     retrieveTutorials() {
-      TutorialDataService.getAll()
+      AlbumDataService.getAll()
         .then(response => {
-          this.tutorials = response.data;
-          
+          this.tutorials = response.data; 
         })
         .catch(e => {
           this.message = e.response.data.message;
@@ -105,7 +105,7 @@ export default {
       this.currentIndex = tutorial ? index : -1;
     },
     removeAllTutorials() {
-      TutorialDataService.deleteAll()
+      AlbumDataService.deleteAll()
         .then(response => {
           console.log(response.data);
           this.refreshList();
@@ -113,14 +113,12 @@ export default {
         .catch(e => {
           this.message = e.response.data.message;
         });
-    },
-    
-    searchTitle() {
-      TutorialDataService.findByTitle(this.title)
+    }, 
+    searchAlbumByTitle() {
+      AlbumDataService.findByTitle(this.title)
         .then(response => {
           this.tutorials = response.data;
-          this.setActiveTutorial(null);
-          
+          this.setActiveTutorial(null); 
         })
         .catch(e => {
           this.message = e.response.data.message;
@@ -133,5 +131,8 @@ export default {
 };
 </script>
 <style>
-
+.search__input{
+  /*top-bottom  left-right*/
+  margin: 10px 0; 
+}
 </style>

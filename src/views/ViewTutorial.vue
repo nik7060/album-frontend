@@ -1,11 +1,11 @@
 <template>
-    <h2>Tutorial View</h2>
+    <h2>Album View</h2>
     <h4>{{ message }}</h4>
     <h3> {{tutorial.title}}</h3>
     <v-btn color="success" @click="goEditTutorial()"
     >Edit</v-btn>
      <v-btn color="success" @click="goAddLesson(id)"
-    >Add Lesson</v-btn>
+    >Add Song</v-btn>
 
      <v-row>
         <v-col  cols="8"
@@ -36,7 +36,7 @@
    
 </template>
 <script>
-import TutorialDataService from "../services/TutorialDataService";
+import AlbumDataService from "../services/AlbumDataService";
 import LessonDataService from "../services/LessonDataService";
 import LessonDisplay from '@/components/LessonDisplay.vue';
 export default {
@@ -49,12 +49,12 @@ export default {
     return {
       tutorial: {},
       lessons : [],
-      message: "Add, Edit or Delete Lessons"
+      message: "Add, Edit or Delete Songs"
     };
   },
   methods: {
     retrieveLessons() {
-      TutorialDataService.get(this.id)
+      AlbumDataService.get(this.id)
         .then(response => {
           this.tutorial= response.data;
           LessonDataService.getAllLessons(this.id)
