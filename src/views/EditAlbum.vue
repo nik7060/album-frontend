@@ -70,11 +70,13 @@ export default {
 </script>
 <style>
 .align__field {
-  /* display-flex : align children items in a row */
   display: flex;
-  /* align-items-center : aligns the items in center vertically */
   align-items: center;
-  width: 25%;
+  width: 20%;
   justify-content: space-around;
+  background: #f5f2f2;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0px 10px 20px rgba(43, 42, 42, 0.103);
 }
 </style>
