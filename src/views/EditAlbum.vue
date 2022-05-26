@@ -53,14 +53,14 @@ export default {
         .then((response) => {
           this.album.id = response.data.id;
           console.log("update response from api??? ", response.data);
-          this.$router.push({ name: "tutorials" });
+          this.$router.push({ name: "albums" });
         })
         .catch((e) => {
           this.message = e.response.data.message;
         });
     },
     cancel() {
-      this.$router.push({ name: "tutorials" });
+      this.$router.push({ name: "albums" });
     },
   },
   mounted() {

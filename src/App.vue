@@ -8,7 +8,7 @@
                 max-width="40"
                 contain
             ></v-img>
-            <v-app-bar-title  >Tutorial</v-app-bar-title>
+            <router-link to="/" class="logo">Manage Albums</router-link>
             <v-spacer></v-spacer>
             <v-toolbar-items>
                 <v-btn 
@@ -46,10 +46,17 @@ export default {
       this.$router.push({ name: 'add' });
     },
     goList() {
-      this.$router.push({ name: 'tutorials' });
+      this.$router.push({ name: 'albums' });
     }
   },
 
 }
 </script>
-
+<style scoped>
+.logo{
+  text-decoration: none;
+  font-size: 20px;
+  color:#2b2a2a;
+  font-weight: 600;
+}
+</style>

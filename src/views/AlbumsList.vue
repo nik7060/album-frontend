@@ -1,8 +1,6 @@
 <template>
-
-    <h1>Album List</h1>
+    <h1>Albums List</h1>
     <h4>{{ message }}</h4>
-  
       <v-row class="search__input">
         <v-col col="12" sm="10">
             <v-text-field density="compact" clearable
@@ -27,6 +25,10 @@
               sm="4">
             <span class="text-h6">Description</span>
         </v-col>
+          <v-col  cols="9"
+              sm="2">
+            <span class="text-h6">Artist Name</span>
+        </v-col>
         <v-col  cols="9"
               sm="1">
             <span class="text-h6">Edit</span>
@@ -40,35 +42,35 @@
             <span class="text-h6">Delete</span>
         </v-col>
       </v-row>
-      <TutorialDisplay
-        v-for="tutorial in tutorials"
-        :key="tutorial.id"
-        :tutorial="tutorial"
-        @deleteTutorial="goDelete(tutorial)"
-        @updateTutorial="goEdit(tutorial)"
-        @viewTutorial="goView(tutorial)"
+      <DisplayAlbum
+        v-for="album in albums"
+        :key="album.id"
+        :album="album"
+        @deleteAlbum="goDelete(album)"
+        @updateAlbum="goEdit(album)"
+        @viewAlbum="goView(album)"
     />
  
-  <v-btn  @click="removeAllTutorials">
+  <v-btn  @click="removeAllAlbums">
     Remove All Albums
   </v-btn>
 </template>
 <script>
 import AlbumDataService from "../services/AlbumDataService";
-import TutorialDisplay from '@/components/TutorialDisplay.vue';
+import DisplayAlbum from '@/components/DisplayAlbum.vue';
 export default {
   name: "albums-list",
   data() {
     return {
-      tutorials: [],
-      currentTutorial: null,
+      albums: [],
+      currentAlbum: null,
       currentIndex: -1,
       title: "",
       message : "Search, Edit or Delete Albums"
     };
   },
   components: {
-        TutorialDisplay
+        DisplayAlbum
     },
   methods: {
     goEdit(album) {
@@ -80,31 +82,31 @@ export default {
     goDelete(album) {
       AlbumDataService.delete(album.id)
         .then( () => {
-          this.retrieveTutorials()
+          this.retrieveAlbums()
         })
         .catch(e => {
           this.message = e.response.data.message;
         });
     },
-    retrieveTutorials() {
+    retrieveAlbums() {
       AlbumDataService.getAll()
         .then(response => {
-          this.tutorials = response.data; 
+          this.albums = response.data; 
         })
         .catch(e => {
           this.message = e.response.data.message;
         });
     },
     refreshList() {
-      this.retrieveTutorials();
-      this.currentTutorial = null;
+      this.retrieveAlbums();
+      this.currentAlbum = null;
       this.currentIndex = -1;
     },
-    setActiveTutorial(tutorial, index) {
-      this.currentTutorial = tutorial;
-      this.currentIndex = tutorial ? index : -1;
+    setActiveAlbum(album, index) {
+      this.currentAlbum = album;
+      this.currentIndex = album ? index : -1;
     },
-    removeAllTutorials() {
+    removeAllAlbums() {
       AlbumDataService.deleteAll()
         .then(response => {
           console.log(response.data);
@@ -117,8 +119,8 @@ export default {
     searchAlbumByTitle() {
       AlbumDataService.findByTitle(this.title)
         .then(response => {
-          this.tutorials = response.data;
-          this.setActiveTutorial(null); 
+          this.albums = response.data;
+          this.setActiveAlbum(null); 
         })
         .catch(e => {
           this.message = e.response.data.message;
@@ -126,7 +128,7 @@ export default {
     }
   },
   mounted() {
-    this.retrieveTutorials();
+    this.retrieveAlbums();
   }
 };
 </script>
