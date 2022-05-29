@@ -52,7 +52,23 @@ export default {
 
 }
 </script>
-<style scoped>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;800&display=swap');
+
+:root{
+--primaryColor:rgb(67, 65, 65);
+--secondaryColor:slateblue;
+--boxShadow:0px 10px 20px rgba(0, 0, 0, 0.107);
+}
+
+html{
+  font-family: 'Poppins', sans-serif !important;
+}
+
+h1,h2,h3,h4,h5,h6,span{
+  color: var(--primaryColor);
+}
+
 .logo{
   text-decoration: none;
   font-size: 20px;
