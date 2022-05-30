@@ -1,100 +1,102 @@
 <template>
+  <div class="landing_page">
     <h2>View Album</h2>
     <h4>{{ message }}</h4>
-    <h3> {{tutorial.title}}</h3>
-    <v-btn color="success" @click="goEditTutorial()"
-    >Edit</v-btn>
-     <v-btn color="success" @click="goAddLesson(id)"
-    >Add Song</v-btn>
+    <h3>{{ tutorial.title }}</h3>
+    <v-btn color="success" @click="goEditTutorial()">Edit</v-btn>
+    <v-btn color="success" @click="goAddLesson(id)">Add Song</v-btn>
 
-     <v-row>
-        <v-col  cols="8"
-              sm="2">
-            <span class="text-h6">Title</span>
+    <v-row class="list_table">
+      <div class="list_table_header">
+        <v-col cols="8" sm="2">
+          <span class="text-h6">Title</span>
         </v-col>
-        <v-col  cols="8"
-              sm="4">
-            <span class="text-h6">Description</span>
+        <v-col cols="8" sm="4">
+          <span class="text-h6">Description</span>
         </v-col>
-        <v-col  cols="8"
-              sm="1">
-            <span class="text-h6">Edit</span>
+        <v-col cols="8" sm="1">
+          <span class="text-h6">Edit</span>
         </v-col>
-        <v-col  cols="8"
-              sm="1">
-            <span class="text-h6">Delete</span>
+        <v-col cols="8" sm="1">
+          <span class="text-h6">Delete</span>
         </v-col>
-      </v-row>
-      <LessonDisplay
-        v-for="lesson in lessons"
-        :key="lesson.id"
-        :lesson="lesson"
-        @deleteLesson="goDeleteLesson(lesson)"
-        @updateLesson="goEditLesson(lesson)"
-    />
-
-   
+        <div class="list_table_body">
+          <LessonDisplay
+            v-for="lesson in lessons"
+            :key="lesson.id"
+            :lesson="lesson"
+            @deleteLesson="goDeleteLesson(lesson)"
+            @updateLesson="goEditLesson(lesson)"
+          />
+        </div>
+      </div>
+    </v-row>
+  </div>
 </template>
 <script>
 import AlbumDataService from "../services/AlbumDataService";
 import LessonDataService from "../services/LessonDataService";
-import LessonDisplay from '@/components/LessonDisplay.vue';
+import LessonDisplay from "@/components/LessonDisplay.vue";
 export default {
   name: "view-tutorial",
-  props: ['id'],
-    components: {
-        LessonDisplay
-    },
+  props: ["id"],
+  components: {
+    LessonDisplay,
+  },
   data() {
     return {
       tutorial: {},
-      lessons : [],
-      message: "Add, Edit or Delete Songs"
+      lessons: [],
+      message: "Add, Edit or Delete Songs",
     };
   },
   methods: {
     retrieveLessons() {
       AlbumDataService.get(this.id)
-        .then(response => {
-          this.tutorial= response.data;
+        .then((response) => {
+          this.tutorial = response.data;
           LessonDataService.getAllLessons(this.id)
-            .then(response=> {
-              this.lessons = response.data})
-            .catch(e => {
-                this.message = e.response.data.message;
-              });
+            .then((response) => {
+              this.lessons = response.data;
             })
-        .catch(e => {
+            .catch((e) => {
+              this.message = e.response.data.message;
+            });
+        })
+        .catch((e) => {
           this.message = e.response.data.message;
         });
     },
-     goEditTutorial() {
-      this.$router.push({ name: 'edit', params: { id: this.id } });
+    goEditTutorial() {
+      this.$router.push({ name: "edit", params: { id: this.id } });
     },
     goEditLesson(lesson) {
-      this.$router.push({ name: 'editLesson', params: { tutorialId: this.id,lessonId: lesson.id} });
+      this.$router.push({
+        name: "editLesson",
+        params: { tutorialId: this.id, lessonId: lesson.id },
+      });
     },
     goAddLesson() {
-      this.$router.push({ name: 'addLesson', params: { tutorialId: this.id } });
+      this.$router.push({ name: "addLesson", params: { tutorialId: this.id } });
     },
 
     goDeleteLesson(lesson) {
-      LessonDataService.deleteLesson(lesson.tutorialId,lesson.id)
-        .then( () => {
-          this.retrieveLessons()
+      LessonDataService.deleteLesson(lesson.tutorialId, lesson.id)
+        .then(() => {
+          this.retrieveLessons();
         })
-        .catch(e => {
+        .catch((e) => {
           this.message = e.response.data.message;
         });
     },
-    cancel(){
-        this.$router.push({ name: 'albums' });
-    }
+    cancel() {
+      this.$router.push({ name: "albums" });
+    },
   },
-    mounted() {
+  mounted() {
     this.retrieveLessons();
-  }
-}
+  },
+};
 </script>
 
 <style>
