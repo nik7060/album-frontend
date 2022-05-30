@@ -27,7 +27,6 @@
 import logo from "./assets/oc-logo-white.png";
 export default {
   name: "App",
-
   data: () => ({
     logo,
   }),

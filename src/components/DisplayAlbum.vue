@@ -7,7 +7,7 @@
       <span> {{ album.description }}</span>
     </v-col>
     <v-col cols="9" sm="2">
-      <span>{{ album.artist[0]?.name }}</span>
+      <span>{{ album?.artist[0]?.name }}</span>
     </v-col>
     <v-col cols="9" sm="1">
       <v-btn size="x-small" icon="mdi-pencil" @click="updateAlbum" />
