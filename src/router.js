@@ -26,13 +26,13 @@ const routes = [
   {
     path: "/addLesson",
     name: "addLesson",
-    component: () => import("./views/AddLesson.vue"),
+    component: () => import("./views/AddSong.vue"),
     props: true
   },
   {
     path: "/editLesson",
     name: "editLesson",
-    component: () => import("./views/EditLesson.vue"),
+    component: () => import("./views/EditSong.vue"),
     props: true
   }
 ];

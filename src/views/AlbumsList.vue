@@ -1,48 +1,51 @@
 <template>
   <div class="landing_page">
     <h1>Albums List</h1>
-  <h4>{{ message }}</h4>
-  <v-row class="search_input">
-    <v-col col="12" sm="10">
-      <v-text-field density="compact" clearable v-model="title" />
-    </v-col>
-    <v-col cols="12" sm="2">
-      <v-btn color="success" @click="searchAlbumByTitle"> Search </v-btn>
-    </v-col>
-  </v-row>
-  <v-row class="list_table">
-    <div class="list_table_header">
-      <v-col cols="9" sm="2">
-        <h4>Title</h4>
+    <h4>{{ message }}</h4>
+    <v-row class="search_input">
+      <v-col col="12" sm="10">
+        <v-text-field density="compact" clearable v-model="title" />
       </v-col>
-      <v-col cols="9" sm="4">
-        <h4>Description</h4>
+      <v-col cols="12" sm="2">
+        <v-btn color="success" @click="searchAlbumByTitle">Search</v-btn>
       </v-col>
-      <v-col cols="9" sm="2">
-        <h4>Artist Name</h4>
-      </v-col>
-      <v-col cols="9" sm="1">
-        <h4>Edit</h4>
-      </v-col>
-      <v-col cols="9" sm="1">
-        <h4>View</h4>
-      </v-col>
-      <v-col cols="9" sm="1">
-        <h4>Delete</h4>
-      </v-col>
-    </div>
-    <div class="list_table_body">
-      <DisplayAlbum
-        v-for="album in albums"
-        :key="album.id"
-        :album="album"
-        @deleteAlbum="goDelete(album)"
-        @updateAlbum="goEdit(album)"
-        @viewAlbum="goView(album)"
-      />
-    </div>
-  </v-row>
-  <v-btn @click="removeAllAlbums"> Remove All Albums </v-btn>
+    </v-row>
+    <v-row class="list_table">
+      <div class="list_table_header">
+        <v-col cols="9" sm="2">
+          <h4>Title</h4>
+        </v-col>
+        <v-col cols="9" sm="4">
+          <h4>Description</h4>
+        </v-col>
+        <v-col cols="9" sm="2">
+          <h4>Artist Name</h4>
+        </v-col>
+        <v-col cols="9" sm="1">
+          <h4>Edit</h4>
+        </v-col>
+        <v-col cols="9" sm="1">
+          <h4>View</h4>
+        </v-col>
+        <v-col cols="9" sm="1">
+          <h4>Delete</h4>
+        </v-col>
+      </div>
+      <div class="list_table_body">
+        <DisplayAlbum
+          v-for="album in albums"
+          :key="album.id"
+          :album="album"
+          @deleteAlbum="goDelete(album)"
+          @updateAlbum="goEdit(album)"
+          @viewAlbum="goView(album)"
+        />
+      </div>
+    </v-row>
+    <v-btn color="error" @click="removeAllAlbums">
+      Remove All Albums
+      <v-icon right dark> mdi-delete </v-icon>
+    </v-btn>
   </div>
 </template>
 <script>
@@ -56,7 +59,7 @@ export default {
       currentAlbum: null,
       currentIndex: -1,
       title: "",
-      message: "Search, Edit or Delete Albums",
+      message: "",
     };
   },
   components: {
@@ -123,13 +126,17 @@ export default {
 };
 </script>
 <style>
-.landing_page{
-  background: blue;
-  padding: 20px;
+.landing_page {
+  background: #f5f5f5;
+  padding: 10px 40px 30px 40px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
 }
 .search_input {
   /*top-bottom  left-right*/
   margin: 10px 0;
+  width: 100%;
 }
 .list_table {
   border: var(--fadedGreyBorder);
@@ -148,12 +155,13 @@ export default {
   justify-content: center;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  height:60px;
+  height: 60px;
 }
-.list_table_header > div > h4{
-  color: var(--fadedGreyColor);
+.list_table_header > div > h4 {
+  color: var(--whiteColor);
+  font-weight: 500;
 }
-.list_table_body{
+.list_table_body {
   margin-top: 12px;
 }
 </style>

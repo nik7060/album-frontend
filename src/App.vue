@@ -45,8 +45,8 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;800&display=swap");
 
 :root {
-  --primaryColor: rgb(67, 65, 65);
-  --secondaryColor: slateblue;
+  --primaryColor: rgb(53, 51, 51);
+  --secondaryColor: rgb(142, 157, 255);
   --fadedGreyColor: #d3d3d3;
   --boxShadow: 0px 10px 20px rgba(0, 0, 0, 0.107);
   --fadedGreyBorder: 1px solid var(--fadedGreyColor);

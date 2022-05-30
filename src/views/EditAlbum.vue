@@ -1,25 +1,22 @@
 <template>
-  <h1>Edit Album</h1>
-  <h4>{{ message }}</h4>
-  <v-form>
-    <v-text-field label="Title" v-model="album.title" />
-    <v-text-field label="Description" v-model="album.description" />
-    <v-text-field label="Artist Name" v-model="album.artist" />
-    <v-row class="align__field">
-      <input type="checkbox" id="publish" v-model="album.published" />
-      <label for="publish">Album Published</label>
-    </v-row>
-    <v-row justify="center">
-      <v-col col="2"> </v-col>
-      <v-col col="2">
+  <div class="landing_page">
+    <h1>Edit Album</h1>
+    <h4>{{ message }}</h4>
+    <v-form class="form">
+      <v-text-field label="Title" v-model="album.title" />
+      <v-text-field label="Description" v-model="album.description" />
+      <v-text-field label="Artist Name" v-model="album.artist" />
+      <v-checkbox
+        v-model="album.published"
+        label="Published"
+        color="primary"
+      ></v-checkbox>
+      <v-row class="form_buttons_wrapper">
         <v-btn color="success" @click="updateAlbum()">Update Album</v-btn>
-      </v-col>
-      <v-col col="2">
         <v-btn color="info" @click="cancel()">Cancel</v-btn>
-      </v-col>
-      <v-col col="2"></v-col>
-    </v-row>
-  </v-form>
+      </v-row>
+    </v-form>
+  </div>
 </template>
 <script>
 import AlbumDataService from "../services/AlbumDataService";
@@ -29,7 +26,7 @@ export default {
   data() {
     return {
       album: {},
-      message: "Enter data and click update",
+      message: "",
     };
   },
   methods: {
@@ -69,14 +66,4 @@ export default {
 };
 </script>
 <style>
-.align__field {
-  display: flex;
-  align-items: center;
-  width: 20%;
-  justify-content: space-around;
-  background: #f5f2f2;
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0px 10px 20px rgba(43, 42, 42, 0.103);
-}
 </style>
