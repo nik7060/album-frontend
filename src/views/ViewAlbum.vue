@@ -21,10 +21,18 @@
           <h4>Delete</h4>
         </v-col>
       </div>
-      <div class="list_table_body">
-        <DisplaySong v-for="song in songs" :key="song.id" :song="song" @deleteSong="deleteSong(song)"
-          @updateSong="goToEditSong(song)" />
+      <div class="list_table_body" v-if="songs.length > 0">
+        <DisplaySong
+          v-for="song in songs"
+          :key="song.id"
+          :song="song"
+          @deleteSong="deleteSong(song)"
+          @updateSong="goToEditSong(song)"
+        />
       </div>
+      <h3 class="list_table_body no_results" v-else="songs.length < 0">
+        SORRY NO SONGS TO DISPLAY
+      </h3>
     </v-row>
   </div>
 </template>
@@ -68,7 +76,11 @@ export default {
     goToEditSong(song) {
       this.$router.push({
         name: "editSong",
-        params: { albumId: this.id, songId: song.id, albumTitle: this.album.title },
+        params: {
+          albumId: this.id,
+          songId: song.id,
+          albumTitle: this.album.title,
+        },
       });
     },
     deleteSong(album) {
