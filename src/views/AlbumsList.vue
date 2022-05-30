@@ -31,7 +31,7 @@
           <h4>Delete</h4>
         </v-col>
       </div>
-      <div class="list_table_body">
+      <div class="list_table_body" v-if="albums.length > 0">
         <DisplayAlbum
           v-for="album in albums"
           :key="album.id"
@@ -41,6 +41,9 @@
           @viewAlbum="goView(album)"
         />
       </div>
+      <h3 class="list_table_body no_results" v-else="albums.length < 0">
+        SORRY NO RESULTS TO DISPLAY
+      </h3>
     </v-row>
     <v-btn color="error" @click="removeAllAlbums">
       Remove All Albums
@@ -163,5 +166,10 @@ export default {
 }
 .list_table_body {
   margin-top: 12px;
+}
+.no_results {
+  text-align: center;
+  color: orangered;
+  margin: 10px 0;
 }
 </style>
