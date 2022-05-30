@@ -21,7 +21,7 @@
           <h4>Delete</h4>
         </v-col>
       </div>
-      <div class="list_table_body" v-else="albums.length < 0">
+      <div class="list_table_body" v-if="songs.length > 0">
         <DisplaySong
           v-for="song in songs"
           :key="song.id"
@@ -30,8 +30,8 @@
           @updateSong="goToEditSong(song)"
         />
       </div>
-      <h3 class="list_table_body no_results" v-else="albums.length < 0">
-        SORRY NO RESULTS TO DISPLAY
+      <h3 class="list_table_body no_results" v-else="songs.length < 0">
+        SORRY NO SONGS TO DISPLAY
       </h3>
     </v-row>
   </div>

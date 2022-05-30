@@ -42,7 +42,7 @@
         />
       </div>
       <h3 class="list_table_body no_results" v-else="albums.length < 0">
-        SORRY NO RESULTS TO DISPLAY
+        SORRY NO ALBUMS TO DISPLAY
       </h3>
     </v-row>
     <v-btn color="error" @click="removeAllAlbums">
