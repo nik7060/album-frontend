@@ -2,62 +2,57 @@
   <div class="landing_page">
     <h2>View Album</h2>
     <h4>{{ message }}</h4>
-    <h3>{{ tutorial.title }}</h3>
-    <v-btn color="success" @click="goEditTutorial()">Edit</v-btn>
-    <v-btn color="success" @click="goAddLesson(id)">Add Song</v-btn>
-
+    <div class="album_details">
+      <h3>Album Title : {{ album.title }}</h3>
+      <v-btn color="success" @click="goToAddSong()">Add Song</v-btn>
+    </div>
     <v-row class="list_table">
       <div class="list_table_header">
         <v-col cols="8" sm="2">
-          <span class="text-h6">Title</span>
+          <h4>Title</h4>
         </v-col>
         <v-col cols="8" sm="4">
-          <span class="text-h6">Description</span>
+          <h4>Description</h4>
         </v-col>
         <v-col cols="8" sm="1">
-          <span class="text-h6">Edit</span>
+          <h4>Edit</h4>
         </v-col>
         <v-col cols="8" sm="1">
-          <span class="text-h6">Delete</span>
+          <h4>Delete</h4>
         </v-col>
-        <div class="list_table_body">
-          <LessonDisplay
-            v-for="lesson in lessons"
-            :key="lesson.id"
-            :lesson="lesson"
-            @deleteLesson="goDeleteLesson(lesson)"
-            @updateLesson="goEditLesson(lesson)"
-          />
-        </div>
+      </div>
+      <div class="list_table_body">
+        <DisplaySong v-for="song in songs" :key="song.id" :song="song" @deleteSong="deleteSong(song)"
+          @updateSong="goToEditSong(song)" />
       </div>
     </v-row>
   </div>
 </template>
 <script>
 import AlbumDataService from "../services/AlbumDataService";
-import LessonDataService from "../services/LessonDataService";
-import LessonDisplay from "@/components/LessonDisplay.vue";
+import SongDataService from "../services/SongDataService";
+import DisplaySong from "@/components/DisplaySong.vue";
 export default {
-  name: "view-tutorial",
+  name: "view-album",
   props: ["id"],
   components: {
-    LessonDisplay,
+    DisplaySong,
   },
   data() {
     return {
-      tutorial: {},
-      lessons: [],
-      message: "Add, Edit or Delete Songs",
+      album: {},
+      songs: [],
+      message: "",
     };
   },
   methods: {
-    retrieveLessons() {
+    retrieveSongs() {
       AlbumDataService.get(this.id)
         .then((response) => {
-          this.tutorial = response.data;
-          LessonDataService.getAllLessons(this.id)
+          this.album = response.data;
+          SongDataService.getAllsongs(this.id)
             .then((response) => {
-              this.lessons = response.data;
+              this.songs = response.data;
             })
             .catch((e) => {
               this.message = e.response.data.message;
@@ -67,23 +62,19 @@ export default {
           this.message = e.response.data.message;
         });
     },
-    goEditTutorial() {
-      this.$router.push({ name: "edit", params: { id: this.id } });
+    goToAddSong() {
+      this.$router.push({ name: "addSong", params: { albumId: this.id } });
     },
-    goEditLesson(lesson) {
+    goToEditSong(song) {
       this.$router.push({
-        name: "editLesson",
-        params: { tutorialId: this.id, lessonId: lesson.id },
+        name: "editSong",
+        params: { albumId: this.id, songId: song.id, albumTitle: this.album.title },
       });
     },
-    goAddLesson() {
-      this.$router.push({ name: "addLesson", params: { tutorialId: this.id } });
-    },
-
-    goDeleteLesson(lesson) {
-      LessonDataService.deleteLesson(lesson.tutorialId, lesson.id)
+    deleteSong(album) {
+      SongDataService.deleteSong(album.albumId, album.id)
         .then(() => {
-          this.retrieveLessons();
+          this.retrieveSongs();
         })
         .catch((e) => {
           this.message = e.response.data.message;
@@ -94,10 +85,24 @@ export default {
     },
   },
   mounted() {
-    this.retrieveLessons();
+    this.retrieveSongs();
   },
 };
 </script>
-
 <style>
+.album_details {
+  margin: 10px 0 20px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  border: var(--fadedGreyBorder);
+  gap: 10px;
+  padding: 10px 10px;
+  border-radius: 10px;
+}
+
+.album_details h3 {
+  border-right: var(--fadedGreyBorder);
+  padding-right: 10px;
+}
 </style>
