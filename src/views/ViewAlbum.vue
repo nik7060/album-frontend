@@ -34,6 +34,10 @@
         SORRY NO SONGS TO DISPLAY
       </h3>
     </v-row>
+  <v-btn color="error" @click="removeAllSongs">
+    Remove All Songs
+    <v-icon right dark> mdi-delete </v-icon>
+  </v-btn>
   </div>
 </template>
 <script>
@@ -85,6 +89,15 @@ export default {
     },
     deleteSong(album) {
       SongDataService.deleteSong(album.albumId, album.id)
+        .then(() => {
+          this.retrieveSongs();
+        })
+        .catch((e) => {
+          this.message = e.response.data.message;
+        });
+    },
+    removeAllSongs() {
+      SongDataService.deleteAllSongs(this.id)
         .then(() => {
           this.retrieveSongs();
         })

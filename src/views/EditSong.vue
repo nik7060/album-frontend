@@ -42,6 +42,7 @@ export default {
         title: this.song.title,
         description: this.song.description,
         albumId: this.song.albumId,
+        published: this.song.published
       };
       SongDataService.updateSong(
         this.song.albumId,
