@@ -35,4 +35,11 @@ export default {
 </script>
 
 <style>
+.list_table_item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+  border-top: var(--fadedGreyBorder);
+}
 </style>

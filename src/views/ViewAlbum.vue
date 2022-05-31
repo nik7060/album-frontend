@@ -115,6 +115,48 @@ export default {
 };
 </script>
 <style>
+.landing_page {
+  background: #f5f5f5;
+  padding: 10px 40px 30px 40px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+}
+.search_input {
+  /*top-bottom  left-right*/
+  margin: 10px 0;
+  width: 100%;
+}
+.list_table {
+  border: var(--fadedGreyBorder);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  width: 100%;
+  overflow: hidden;
+}
+.list_table_header {
+  background: var(--secondaryColor);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  height: 60px;
+}
+.list_table_header > div > h4 {
+  color: var(--whiteColor);
+  font-weight: 500;
+}
+.list_table_body {
+  margin-top: 12px;
+}
+.no_results {
+  text-align: center;
+  color: orangered;
+  margin: 10px 0;
+}
 .album_details {
   margin: 10px 0 20px 0;
   display: grid;

@@ -78,4 +78,16 @@ export default {
   border: var(--fadedGreyBorder);
   border-radius: 10px;
 }
+.form {
+  width: 100%;
+  margin-top: 20px;
+}
+.form_buttons_wrapper{
+ display: flex;
+ justify-content: center;
+ margin-top: -50px;
+}
+.form_buttons_wrapper button{
+ margin: 0px 10px;
+}
 </style>

@@ -150,7 +150,6 @@ export default {
   width: 100%;
   overflow: hidden;
 }
-
 .list_table_header {
   background: var(--secondaryColor);
   display: flex;
