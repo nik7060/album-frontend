@@ -34,7 +34,12 @@ const routes = [
     name: "editSong",
     component: () => import("./views/EditSong.vue"),
     props: true
-  }
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: () => import("./views/Login.vue")
+  },
 ];
 const router = createRouter({
   base: process.env.NODE_ENV === 'development' ? '/' : '/tutorial-frontend-1/',

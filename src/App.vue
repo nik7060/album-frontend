@@ -1,6 +1,6 @@
 <template>
-  <v-app>
-    <v-app-bar>
+  <div>
+    <v-app-bar v-if="token === '12345'">
       <v-img
         class="mx-2"
         :src="logo"
@@ -15,12 +15,10 @@
         <v-btn variant="text" @click="goAdd"> Add </v-btn>
       </v-toolbar-items>
     </v-app-bar>
-    <v-main>
-      <v-container>
+      <div>
         <router-view />
-      </v-container>
-    </v-main>
-  </v-app>
+      </div>
+  </div>
 </template>
 
 <script>
@@ -29,6 +27,7 @@ export default {
   name: "App",
   data: () => ({
     logo,
+    token:localStorage.getItem('token')
   }),
   methods: {
     goAdd() {
@@ -37,7 +36,7 @@ export default {
     goList() {
       this.$router.push({ name: "albums" });
     },
-  },
+  }
 };
 </script>
 <style>
@@ -51,6 +50,7 @@ export default {
   --fadedGreyBorder: 1px solid var(--fadedGreyColor);
   --blackColor:rgb(27, 27, 27);
   --whiteColor:#fff;
+  --violetColor:#11113d;
 }
 
 html {
