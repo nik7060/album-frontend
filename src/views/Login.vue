@@ -5,7 +5,7 @@
     </div>
     <div class="login_right">
       <h2>Login</h2>
-      <h4>{{ message }}</h4>
+      <h4 class="login_error">{{ message }}</h4>
       <form class="form">
         <div class="form_input_wrapper">
           <label for="email">EMAIL *</label>
@@ -41,12 +41,27 @@ export default {
       },
     };
   },
-  methods:{
-      handleLogin(e){
-          e.preventDefault();
-          console.log(this.formData);
+  methods: {
+    handleLogin(e) {
+      e.preventDefault();
+      console.log(this.formData);
+      if (!this.formData.email || !this.formData.password) {
+        this.message = "Email & Password Required !";
+        return;
       }
-  }
+      if (
+        this.formData.email === "test@gmail.com" &&
+        this.formData.password === "12345"
+      ) {
+        sessionStorage.setItem("token", "12345");
+        sessionStorage.setItem("authenticated", "true");
+        this.$router.push({ name: "albums" });
+      } else {
+        this.message = "Invalid Login Credentials !";
+        return;
+      }
+    },
+  },
 };
 </script>
 <style>
@@ -89,6 +104,14 @@ export default {
   padding: 10px;
   outline: 0;
   border-radius: 5px;
+  transition: all .2s ease-in-out;
+}
+.form_input_wrapper input:focus {
+box-shadow: var(--boxShadow);
+}
+.form_input_wrapper label {
+font-size: 14px;
+color: var(--primaryColor);
 }
 .login_button {
   border: 1px solid var(--violetColor);
@@ -104,5 +127,16 @@ export default {
   background: var(--secondaryColor);
   color: var(--whiteColor);
   border: 1px solid transparent;
+}
+.login_error{
+    padding: 1px 20px;
+    text-align: center;
+    font-size: 14px;
+    text-transform: uppercase;
+    background: var(--fadedGreyColor);
+    margin: 10px 0;
+    border-radius: 10px;
+    color: var(--redColor);
+     transition: all .4s ease-in-out;
 }
 </style>

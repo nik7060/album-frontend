@@ -15,9 +15,9 @@
         <v-btn variant="text" @click="goAdd"> Add </v-btn>
       </v-toolbar-items>
     </v-app-bar>
-      <div>
-        <router-view />
-      </div>
+    <div>
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -27,7 +27,6 @@ export default {
   name: "App",
   data: () => ({
     logo,
-    token:localStorage.getItem('token')
   }),
   methods: {
     goAdd() {
@@ -36,7 +35,16 @@ export default {
     goList() {
       this.$router.push({ name: "albums" });
     },
-  }
+  },
+  created() {
+    const token = sessionStorage.getItem("token");
+    const isAuthenticated = sessionStorage.getItem("authenticated");
+    if (token === "12345" && isAuthenticated === "true") {
+      this.$router.push({ name: "albums" });
+      } else {
+      this.$router.push({ name: "login" });
+    }
+  },
 };
 </script>
 <style>
@@ -48,9 +56,10 @@ export default {
   --fadedGreyColor: #d3d3d3;
   --boxShadow: 0px 10px 20px rgba(0, 0, 0, 0.107);
   --fadedGreyBorder: 1px solid var(--fadedGreyColor);
-  --blackColor:rgb(27, 27, 27);
-  --whiteColor:#fff;
-  --violetColor:#11113d;
+  --blackColor: rgb(27, 27, 27);
+  --whiteColor: #fff;
+  --violetColor: #11113d;
+  --redColor:orangered;
 }
 
 html {
