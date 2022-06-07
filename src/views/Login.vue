@@ -20,7 +20,7 @@
           <label for="password">PASSWORD *</label>
           <input
             id="password"
-            type="text"
+            type="password"
             v-model="formData.password"
             class="form_input"
           />
@@ -105,6 +105,7 @@ export default {
   outline: 0;
   border-radius: 5px;
   transition: all .2s ease-in-out;
+  font-size: 14px;
 }
 .form_input_wrapper input:focus {
 box-shadow: var(--boxShadow);
@@ -113,21 +114,7 @@ box-shadow: var(--boxShadow);
 font-size: 14px;
 color: var(--primaryColor);
 }
-.login_button {
-  border: 1px solid var(--violetColor);
-  padding: 10px 20px;
-  outline: 0;
-  border-radius: 5px;
-  margin: 10px auto;
-  color: var(--violetColor);
-  transition: all 0.3s ease-in-out;
-  letter-spacing: 2px;
-}
-.login_button:hover {
-  background: var(--secondaryColor);
-  color: var(--whiteColor);
-  border: 1px solid transparent;
-}
+
 .login_error{
     padding: 1px 20px;
     text-align: center;

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <v-app-bar v-if="token === '12345'">
+  <div class="header">
+    <div class="header_left">
       <v-img
         class="mx-2"
         :src="logo"
@@ -9,15 +9,18 @@
         contain
       ></v-img>
       <router-link to="/" class="logo">Manage Albums</router-link>
-      <v-spacer></v-spacer>
-      <v-toolbar-items>
-        <v-btn variant="text" @click="goList"> List </v-btn>
-        <v-btn variant="text" @click="goAdd"> Add </v-btn>
-      </v-toolbar-items>
-    </v-app-bar>
-    <div>
-      <router-view />
     </div>
+
+ <div class="header_right">
+      <v-toolbar-items>
+      <v-btn variant="text" @click="goList"> List </v-btn>
+      <v-btn variant="text" @click="goAdd"> Add </v-btn>
+    </v-toolbar-items>
+    <button @click="handleLogout" class="login_button">LOGOUT</button>
+ </div>
+  </div>
+  <div>
+    <router-view />
   </div>
 </template>
 
@@ -35,13 +38,18 @@ export default {
     goList() {
       this.$router.push({ name: "albums" });
     },
+    handleLogout() {
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("authenticated");
+      this.$router.push({ name: "login" });
+    },
   },
   created() {
     const token = sessionStorage.getItem("token");
     const isAuthenticated = sessionStorage.getItem("authenticated");
     if (token === "12345" && isAuthenticated === "true") {
       this.$router.push({ name: "albums" });
-      } else {
+    } else {
       this.$router.push({ name: "login" });
     }
   },
@@ -59,7 +67,7 @@ export default {
   --blackColor: rgb(27, 27, 27);
   --whiteColor: #fff;
   --violetColor: #11113d;
-  --redColor:orangered;
+  --redColor: orangered;
 }
 
 html {
@@ -81,5 +89,35 @@ span {
   font-size: 20px;
   color: #2b2a2a;
   font-weight: 600;
+}
+
+.login_button {
+  border: 1px solid var(--violetColor);
+  padding: 10px 20px;
+  outline: 0;
+  border-radius: 5px;
+  margin: 10px auto;
+  color: var(--violetColor);
+  transition: all 0.3s ease-in-out;
+  letter-spacing: 2px;
+}
+.login_button:hover {
+  background: var(--secondaryColor);
+  color: var(--whiteColor);
+  border: 1px solid transparent;
+}
+.header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 40px;
+  box-shadow: var(--boxShadow);
+  border-bottom: 3px solid #c8c6c6a8;
+}
+.header_left{
+  display: grid;
+  grid-template-columns: 20% 1fr;
+  align-items: center;
+  width: 20%;
 }
 </style>
