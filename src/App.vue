@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="header" v-if="currentPath !== '/login'">
     <div class="header_left">
       <v-img
         class="mx-2"
@@ -11,13 +11,13 @@
       <router-link to="/" class="logo">Manage Albums</router-link>
     </div>
 
- <div class="header_right">
+    <div class="header_right">
       <v-toolbar-items>
-      <v-btn variant="text" @click="goList"> List </v-btn>
-      <v-btn variant="text" @click="goAdd"> Add </v-btn>
-    </v-toolbar-items>
-    <button @click="handleLogout" class="login_button">LOGOUT</button>
- </div>
+        <v-btn variant="text" @click="goList"> List </v-btn>
+        <v-btn variant="text" @click="goAdd"> Add </v-btn>
+      </v-toolbar-items>
+      <button @click="handleLogout" class="login_button">LOGOUT</button>
+    </div>
   </div>
   <div>
     <router-view />
@@ -30,6 +30,7 @@ export default {
   name: "App",
   data: () => ({
     logo,
+    currentPath:""
   }),
   methods: {
     goAdd() {
@@ -52,6 +53,12 @@ export default {
     } else {
       this.$router.push({ name: "login" });
     }
+    this.$watch(
+      () => this.$route.params,
+      () => {
+        this.currentPath = this.$route.path;
+      }
+    );
   },
 };
 </script>
@@ -106,7 +113,7 @@ span {
   color: var(--whiteColor);
   border: 1px solid transparent;
 }
-.header{
+.header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -114,7 +121,7 @@ span {
   box-shadow: var(--boxShadow);
   border-bottom: 3px solid #c8c6c6a8;
 }
-.header_left{
+.header_left {
   display: grid;
   grid-template-columns: 20% 1fr;
   align-items: center;
