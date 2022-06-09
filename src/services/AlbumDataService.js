@@ -21,5 +21,8 @@ class AlbumDataService {
   findByTitle(title) {
     return http.get(`/albums/search?title=${title}`);
   }
+  getAllPublishedAlbums() {
+    return http.get(`/albums/published`);
+  }
 }
 export default new AlbumDataService();

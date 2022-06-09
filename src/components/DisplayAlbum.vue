@@ -9,6 +9,9 @@
     <v-col cols="9" sm="2">
       <span>{{ album?.artist[0]?.name }}</span>
     </v-col>
+    <v-col cols="9" sm="2">
+      <span>{{ album?.published ? "Published" : "UnPublished" }}</span>
+    </v-col>
     <v-col cols="9" sm="1">
       <v-btn size="x-small" icon="mdi-pencil" @click="updateAlbum" />
     </v-col>

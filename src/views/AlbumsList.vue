@@ -10,6 +10,7 @@
         <v-btn color="success" @click="searchAlbumByTitle">Search</v-btn>
       </v-col>
     </v-row>
+    <button @click="showPublishedAlbums" class="login_button">Show Published Albums</button>
     <v-row class="list_table">
       <div class="list_table_header">
         <v-col cols="9" sm="2">
@@ -20,6 +21,9 @@
         </v-col>
         <v-col cols="9" sm="2">
           <h4>Artist Name</h4>
+        </v-col>
+        <v-col cols="9" sm="2">
+          <h4>Album Status</h4>
         </v-col>
         <v-col cols="9" sm="1">
           <h4>Edit</h4>
@@ -117,6 +121,16 @@ export default {
         .then((response) => {
           this.albums = response.data;
           this.setActiveAlbum(null);
+        })
+        .catch((e) => {
+          this.message = e.response.data.message;
+        });
+    },
+    showPublishedAlbums() {
+      AlbumDataService.getAllPublishedAlbums()
+        .then((response) => {
+          console.log("response??",response);
+          this.albums = response.data;
         })
         .catch((e) => {
           this.message = e.response.data.message;
