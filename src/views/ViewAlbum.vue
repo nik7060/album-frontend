@@ -6,6 +6,7 @@
       <h3>Album Title : {{ album.title }}</h3>
       <v-btn color="success" @click="goToAddSong()">Add Song</v-btn>
     </div>
+    <button @click="showPublishedSongs" class="login_button">Show Published Songs</button>
     <v-row class="list_table">
       <div class="list_table_header">
         <v-col cols="8" sm="2">
@@ -13,6 +14,9 @@
         </v-col>
         <v-col cols="8" sm="4">
           <h4>Description</h4>
+        </v-col>
+        <v-col cols="8" sm="2">
+          <h4>Song Status</h4>
         </v-col>
         <v-col cols="8" sm="1">
           <h4>Edit</h4>
@@ -22,22 +26,17 @@
         </v-col>
       </div>
       <div class="list_table_body" v-if="songs.length > 0">
-        <DisplaySong
-          v-for="song in songs"
-          :key="song.id"
-          :song="song"
-          @deleteSong="deleteSong(song)"
-          @updateSong="goToEditSong(song)"
-        />
+        <DisplaySong v-for="song in songs" :key="song.id" :song="song" @deleteSong="deleteSong(song)"
+          @updateSong="goToEditSong(song)" />
       </div>
       <h3 class="list_table_body no_results" v-else="songs.length < 0">
         SORRY NO SONGS TO DISPLAY
       </h3>
     </v-row>
-  <v-btn color="error" @click="removeAllSongs">
-    Remove All Songs
-    <v-icon right dark> mdi-delete </v-icon>
-  </v-btn>
+    <v-btn color="error" @click="removeAllSongs">
+      Remove All Songs
+      <v-icon right dark> mdi-delete </v-icon>
+    </v-btn>
   </div>
 </template>
 <script>
@@ -105,6 +104,16 @@ export default {
           this.message = e.response.data.message;
         });
     },
+    showPublishedSongs() {
+      SongDataService.getAllPublishedSongs(this.id)
+        .then((response) => {
+          console.log("response??", response);
+          this.songs = response.data;
+        })
+        .catch((e) => {
+          this.message = e.response.data.message;
+        });
+    },
     cancel() {
       this.$router.push({ name: "albums" });
     },
@@ -122,11 +131,13 @@ export default {
   display: grid;
   place-items: center;
 }
+
 .search_input {
   /*top-bottom  left-right*/
   margin: 10px 0;
   width: 100%;
 }
+
 .list_table {
   border: var(--fadedGreyBorder);
   display: flex;
@@ -136,6 +147,7 @@ export default {
   width: 100%;
   overflow: hidden;
 }
+
 .list_table_header {
   background: var(--secondaryColor);
   display: flex;
@@ -145,18 +157,22 @@ export default {
   border-top-right-radius: 10px;
   height: 60px;
 }
-.list_table_header > div > h4 {
+
+.list_table_header>div>h4 {
   color: var(--whiteColor);
   font-weight: 500;
 }
+
 .list_table_body {
   margin-top: 12px;
 }
+
 .no_results {
   text-align: center;
   color: orangered;
   margin: 10px 0;
 }
+
 .album_details {
   margin: 10px 0 20px 0;
   display: grid;
