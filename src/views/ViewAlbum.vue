@@ -6,7 +6,10 @@
       <h3>Album Title : {{ album.title }}</h3>
       <v-btn color="success" @click="goToAddSong()">Add Song</v-btn>
     </div>
-    <button @click="showPublishedSongs" class="login_button">Show Published Songs</button>
+    <button 
+    @click="showPublishedSongs"
+    v-if="songs.length > 0" 
+    class="login_button align_button_end">Show Published Songs</button>
     <v-row class="list_table">
       <div class="list_table_header">
         <v-col cols="8" sm="2">
@@ -174,7 +177,7 @@ export default {
 }
 
 .album_details {
-  margin: 10px 0 20px 0;
+  margin: 10px 0 35px 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;

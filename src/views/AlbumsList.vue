@@ -10,13 +10,19 @@
         <v-btn color="success" @click="searchAlbumByTitle">Search</v-btn>
       </v-col>
     </v-row>
-    <button @click="showPublishedAlbums" class="login_button">Show Published Albums</button>
+      <button
+        @click="showPublishedAlbums"
+        class="login_button align_button_end"
+        v-if="albums.length > 0"
+      >
+        Show Published Albums
+      </button>
     <v-row class="list_table">
       <div class="list_table_header">
         <v-col cols="9" sm="2">
           <h4>Title</h4>
         </v-col>
-        <v-col cols="9" sm="4">
+        <v-col cols="9" sm="2">
           <h4>Description</h4>
         </v-col>
         <v-col cols="9" sm="2">
@@ -129,7 +135,7 @@ export default {
     showPublishedAlbums() {
       AlbumDataService.getAllPublishedAlbums()
         .then((response) => {
-          console.log("response??",response);
+          console.log("response??", response);
           this.albums = response.data;
         })
         .catch((e) => {
@@ -184,5 +190,8 @@ export default {
   text-align: center;
   color: orangered;
   margin: 10px 0;
+}
+.align_button_end {
+  margin: -20px 0px 25px 78%;
 }
 </style>
