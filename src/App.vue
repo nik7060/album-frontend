@@ -30,7 +30,7 @@ export default {
   name: "App",
   data: () => ({
     logo,
-    currentPath:""
+    currentPath: "",
   }),
   methods: {
     goAdd() {
@@ -40,15 +40,13 @@ export default {
       this.$router.push({ name: "albums" });
     },
     handleLogout() {
-      sessionStorage.removeItem("token");
       sessionStorage.removeItem("authenticated");
       this.$router.push({ name: "login" });
     },
   },
   created() {
-    const token = sessionStorage.getItem("token");
     const isAuthenticated = sessionStorage.getItem("authenticated");
-    if (token === "12345" && isAuthenticated === "true") {
+    if (isAuthenticated === "true") {
       this.$router.push({ name: "albums" });
     } else {
       this.$router.push({ name: "login" });
