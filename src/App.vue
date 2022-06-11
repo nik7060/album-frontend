@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import AuthService from "./services/AuthService";
 import logo from "./assets/oc-logo-white.png";
 export default {
   name: "App",
@@ -40,8 +41,13 @@ export default {
       this.$router.push({ name: "albums" });
     },
     handleLogout() {
-      sessionStorage.removeItem("authenticated");
-      this.$router.push({ name: "login" });
+      const email = sessionStorage.getItem("email");
+      AuthService.logout(email).then((response) => {
+        console.log("logout response??", response);
+        sessionStorage.removeItem("authenticated");
+        sessionStorage.removeItem("email");
+        this.$router.push({ name: "login" });
+      });
     },
   },
   created() {
