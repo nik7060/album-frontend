@@ -59,6 +59,7 @@ export default {
         .then((response) => {
           if (response.data.loggedin === true) {
             sessionStorage.setItem("authenticated", response.data.loggedin);
+            sessionStorage.setItem("email", response.data.email);
             this.$router.push({ name: "albums" });
           }
         })
