@@ -6,10 +6,28 @@
       <h3>Album Title : {{ album.title }}</h3>
       <v-btn color="success" @click="goToAddSong()">Add Song</v-btn>
     </div>
-    <button 
-    @click="showPublishedSongs"
-    v-if="songs.length > 0" 
-    class="login_button align_button_end">Show Published Songs</button>
+    <v-row class="search_input">
+      <v-col col="12" sm="10">
+        <v-text-field
+          density="compact"
+          label="Enter Song Title"
+          clearable
+          v-model="songName"
+        />
+      </v-col>
+      <v-col cols="12" sm="2">
+        <v-btn color="success" @click="searchSongsBySongName"
+          >Search Songs</v-btn
+        >
+      </v-col>
+    </v-row>
+    <button
+      @click="showPublishedSongs"
+      v-if="songs.length > 0"
+      class="login_button align_button_end"
+    >
+      Show Published Songs
+    </button>
     <v-row class="list_table">
       <div class="list_table_header">
         <v-col cols="8" sm="2">
@@ -29,8 +47,13 @@
         </v-col>
       </div>
       <div class="list_table_body" v-if="songs.length > 0">
-        <DisplaySong v-for="song in songs" :key="song.id" :song="song" @deleteSong="deleteSong(song)"
-          @updateSong="goToEditSong(song)" />
+        <DisplaySong
+          v-for="song in songs"
+          :key="song.id"
+          :song="song"
+          @deleteSong="deleteSong(song)"
+          @updateSong="goToEditSong(song)"
+        />
       </div>
       <h3 class="list_table_body no_results" v-else="songs.length < 0">
         SORRY NO SONGS TO DISPLAY
@@ -57,6 +80,7 @@ export default {
       album: {},
       songs: [],
       message: "",
+      songName: "",
     };
   },
   methods: {
@@ -120,6 +144,15 @@ export default {
     cancel() {
       this.$router.push({ name: "albums" });
     },
+    searchSongsBySongName() {
+      SongDataService.searchBySongName(this.id, this.songName)
+        .then((response) => {
+          this.songs = response.data;
+        })
+        .catch((e) => {
+          this.message = e.response.data.message;
+        });
+    },
   },
   mounted() {
     this.retrieveSongs();
@@ -161,7 +194,7 @@ export default {
   height: 60px;
 }
 
-.list_table_header>div>h4 {
+.list_table_header > div > h4 {
   color: var(--whiteColor);
   font-weight: 500;
 }
