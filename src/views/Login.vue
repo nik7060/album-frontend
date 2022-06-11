@@ -31,6 +31,7 @@
   </div>
 </template>
 <script>
+import AuthService from "../services/AuthService";
 export default {
   data() {
     return {
@@ -49,17 +50,22 @@ export default {
         this.message = "Email & Password Required !";
         return;
       }
-      if (
-        this.formData.email === "test@gmail.com" &&
-        this.formData.password === "12345"
-      ) {
-        sessionStorage.setItem("token", "12345");
-        sessionStorage.setItem("authenticated", "true");
-        this.$router.push({ name: "albums" });
-      } else {
-        this.message = "Invalid Login Credentials !";
-        return;
-      }
+      const formData = {
+        email: this.formData.email,
+        password: this.formData.password,
+      };
+      console.log("formData???",formData);
+      AuthService.login(formData)
+        .then((response) => {
+          if (response.data.loggedin === true) {
+            sessionStorage.setItem("authenticated", response.data.loggedin);
+            this.$router.push({ name: "albums" });
+          }
+        })
+        .catch((e) => {
+          console.log("error?",e);
+          this.message = e.response.data.message;
+        });
     },
   },
 };
@@ -104,26 +110,26 @@ export default {
   padding: 10px;
   outline: 0;
   border-radius: 5px;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   font-size: 14px;
 }
 .form_input_wrapper input:focus {
-box-shadow: var(--boxShadow);
+  box-shadow: var(--boxShadow);
 }
 .form_input_wrapper label {
-font-size: 14px;
-color: var(--primaryColor);
+  font-size: 14px;
+  color: var(--primaryColor);
 }
 
-.login_error{
-    padding: 1px 20px;
-    text-align: center;
-    font-size: 14px;
-    text-transform: uppercase;
-    background: var(--fadedGreyColor);
-    margin: 10px 0;
-    border-radius: 10px;
-    color: var(--redColor);
-     transition: all .4s ease-in-out;
+.login_error {
+  padding: 1px 20px;
+  text-align: center;
+  font-size: 14px;
+  text-transform: uppercase;
+  background: var(--fadedGreyColor);
+  margin: 10px 0;
+  border-radius: 10px;
+  color: var(--redColor);
+  transition: all 0.4s ease-in-out;
 }
 </style>
