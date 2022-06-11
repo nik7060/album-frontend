@@ -4,19 +4,24 @@
     <h4>{{ message }}</h4>
     <v-row class="search_input">
       <v-col col="12" sm="10">
-        <v-text-field density="compact" clearable v-model="title" />
+        <v-text-field
+        density="compact"
+          label="Enter Album title or Artist Name"
+          clearable
+          v-model="title"
+        />
       </v-col>
       <v-col cols="12" sm="2">
-        <v-btn color="success" @click="searchAlbumByTitle">Search</v-btn>
+        <v-btn color="success" @click="searchAlbumByTitle">Search Albums</v-btn>
       </v-col>
     </v-row>
-      <button
-        @click="showPublishedAlbums"
-        class="login_button align_button_end"
-        v-if="albums.length > 0"
-      >
-        Show Published Albums
-      </button>
+    <button
+      @click="showPublishedAlbums"
+      class="login_button align_button_end"
+      v-if="albums.length > 0"
+    >
+      Show Published Albums
+    </button>
     <v-row class="list_table">
       <div class="list_table_header">
         <v-col cols="9" sm="2">

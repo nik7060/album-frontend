@@ -21,5 +21,8 @@ class SongDataService {
   getAllPublishedSongs(albumId) {
     return http.get(`/albums/${albumId}/songs/published`);
   }
+  searchBySongName(albumId, songName) {
+    return http.get(`/albums/${albumId}/songs/search?song=${songName}`);
+  }
 }
 export default new SongDataService();
