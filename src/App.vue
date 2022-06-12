@@ -1,13 +1,10 @@
 <template>
   <div class="header" v-if="currentPath !== '/login'">
     <div class="header_left">
-      <v-img
-        class="mx-2"
+      <img
+        class="header_logo"
         :src="logo"
-        max-height="40"
-        max-width="40"
-        contain
-      ></v-img>
+      />
       <router-link to="/" class="logo">Manage Albums</router-link>
     </div>
 
@@ -26,7 +23,7 @@
 
 <script>
 import AuthService from "./services/AuthService";
-import logo from "./assets/oc-logo-white.png";
+import logo from "./assets/app_logo.svg";
 export default {
   name: "App",
   data: () => ({
@@ -100,6 +97,10 @@ span {
   font-size: 20px;
   color: #2b2a2a;
   font-weight: 600;
+}
+.header_logo{
+  height: 100px;
+  width: 100px;
 }
 
 .login_button {
