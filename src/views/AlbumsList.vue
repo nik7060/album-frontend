@@ -6,7 +6,7 @@
       <v-col col="12" sm="10">
         <v-text-field
         density="compact"
-          label="Enter Album title or Artist Name"
+          label="Enter Artist Name"
           clearable
           v-model="title"
         />
