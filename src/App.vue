@@ -99,8 +99,10 @@ span {
   font-weight: 600;
 }
 .header_logo{
-  height: 100px;
-  width: 100px;
+  height:  75px;
+  width: 75px;
+  margin: 0 20px;
+  object-fit: contain;
 }
 
 .login_button {
@@ -130,6 +132,7 @@ span {
   display: grid;
   grid-template-columns: 20% 1fr;
   align-items: center;
-  width: 20%;
+  justify-content: space-between;
+  column-gap: 25px;
 }
 </style>
